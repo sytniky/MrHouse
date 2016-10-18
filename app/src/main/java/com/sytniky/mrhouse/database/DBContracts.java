@@ -27,5 +27,7 @@ public class DBContracts {
         public static final String[] DEFAULT_PROJECTION = new String[]{
                 _ID, COLUMN_TITLE
         };
+
+        public static final String DEFAULT_SORT_ORDER = COLUMN_TITLE + " ASC";
     }
 }

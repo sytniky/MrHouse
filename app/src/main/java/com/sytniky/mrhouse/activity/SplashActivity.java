@@ -81,7 +81,11 @@ public class SplashActivity extends AppCompatActivity {
             mRequestId = serviceHelper.getCities();
             startNextActivity();
         } else {
-
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             // go to next step
             startNextActivity();
         }
@@ -101,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private boolean isExpiredCitySynchDate(long savedCitySynchDate) {
-        return (savedCitySynchDate + (60 * 1000)) < System.currentTimeMillis();
+        return (savedCitySynchDate + (1000 * 60 * 60 * 24)) < System.currentTimeMillis();
     }
 
     private void showToast(String s) {
