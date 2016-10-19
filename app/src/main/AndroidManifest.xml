@@ -20,11 +20,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.CityActivity"
             android:theme="@style/SetupTheme" />
-
+        <activity
+            android:name=".activity.PhoneActivity"
+            android:theme="@style/SetupTheme" />
         <activity android:name=".activity.MainActivity" />
 
         <service

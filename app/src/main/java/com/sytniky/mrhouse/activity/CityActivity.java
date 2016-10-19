@@ -23,8 +23,8 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int LOADER_ID = 101;
     private Context mContext;
-    private Spinner mSpCities;
-    private SimpleCursorAdapter mCitiesAdapter;
+    private Spinner mSpCity;
+    private SimpleCursorAdapter mCityAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_city);
         mContext = this;
 
-        mSpCities = (Spinner) findViewById(R.id.spCities);
+        mSpCity = (Spinner) findViewById(R.id.spCity);
 
-        mSpCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        mSpCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (id > 0) {
@@ -50,7 +50,7 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        mCitiesAdapter = new SimpleCursorAdapter(
+         mCityAdapter = new SimpleCursorAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
                 null,
@@ -59,7 +59,7 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
                 0
         );
 
-        mSpCities.setAdapter(mCitiesAdapter);
+        mSpCity.setAdapter( mCityAdapter);
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
@@ -78,13 +78,13 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         Cursor mergedCursor = addCityHeaderToCursor(data);
-        mCitiesAdapter.changeCursor(mergedCursor);
-        mCitiesAdapter.notifyDataSetChanged();
+         mCityAdapter.changeCursor(mergedCursor);
+         mCityAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-        mCitiesAdapter.changeCursor(null);
+         mCityAdapter.changeCursor(null);
     }
 
     @NonNull
