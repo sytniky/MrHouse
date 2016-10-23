@@ -71,24 +71,27 @@ public class SplashActivity extends AppCompatActivity {
         long savedCitySynchDate = getSavedCitySynchDate();
         Logger.debug(TAG, "Saved synch city date = " + String.valueOf(savedCitySynchDate));
 
-        if (savedCitySynchDate == 0) {
+//        if (savedCitySynchDate == 0) {
+//
+//            // make request and wait results...
+//            mRequestId = serviceHelper.getCities();
+//        } else if (isExpiredCitySynchDate(savedCitySynchDate)) {
+//
+//            // make request and go to next step without waiting of results
+//            mRequestId = serviceHelper.getCities();
+//            startNextActivity();
+//        } else {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            // go to next step
+//            startNextActivity();
+//        }
 
-            // make request and wait results...
-            mRequestId = serviceHelper.getCities();
-        } else if (isExpiredCitySynchDate(savedCitySynchDate)) {
-
-            // make request and go to next step without waiting of results
-            mRequestId = serviceHelper.getCities();
-            startNextActivity();
-        } else {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            // go to next step
-            startNextActivity();
-        }
+        // go to next step
+        startNextActivity();
     }
 
     private void updateCitySynchDate() {

@@ -14,17 +14,20 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.sytniky.mrhouse.R;
 import com.sytniky.mrhouse.database.DBContracts;
 
 public class CityActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
+    public static final String EXTRA_CITY_ID = "cityId";
     private static final int LOADER_ID = 101;
     private Context mContext;
-    private Spinner mSpCity;
     private SimpleCursorAdapter mCityAdapter;
+    private long mCityId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,16 +35,18 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_city);
         mContext = this;
 
-        mSpCity = (Spinner) findViewById(R.id.spCity);
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mCityId = extras.getLong(EXTRA_CITY_ID);
+        }
 
-        mSpCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner spCity = (Spinner) findViewById(R.id.spCity);
+        Button btnNext = (Button) findViewById(R.id.btnNext);
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (id > 0) {
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
+                mCityId = id;
             }
 
             @Override
@@ -50,7 +55,22 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-         mCityAdapter = new SimpleCursorAdapter(
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mCityId > 0) {
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    intent.putExtra(PhoneActivity.EXTRA_CITY_ID, mCityId);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(mContext, R.string.toast_select_city, Toast.LENGTH_SHORT)
+                            .show();
+                }
+            }
+        });
+
+        mCityAdapter = new SimpleCursorAdapter(
                 this,
                 android.R.layout.simple_spinner_dropdown_item,
                 null,
@@ -59,7 +79,7 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
                 0
         );
 
-        mSpCity.setAdapter( mCityAdapter);
+        spCity.setAdapter( mCityAdapter);
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 

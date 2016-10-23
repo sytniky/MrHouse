@@ -11,18 +11,19 @@ import android.widget.Toast;
 
 import com.sytniky.mrhouse.R;
 
-public class PhoneActivity extends AppCompatActivity {
+public class PasswordActivity extends AppCompatActivity {
 
     public static final String EXTRA_CITY_ID = "cityId";
     public static final String EXTRA_PHONE = "phone";
     private Context mContext;
     private long mCityId;
     private String mPhone;
+    private String mPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_phone);
+        setContentView(R.layout.activity_password);
         mContext = this;
 
         Bundle extras = getIntent().getExtras();
@@ -31,22 +32,25 @@ public class PhoneActivity extends AppCompatActivity {
             mPhone = extras.getString(EXTRA_PHONE);
         }
 
-        final EditText etPhone = (EditText) findViewById(R.id.etPhone);
+        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
+        final EditText etRepeatPassword = (EditText) findViewById(R.id.etRepeatPassword);
         Button btnNext = (Button) findViewById(R.id.btnNext);
         Button btnBack = (Button) findViewById(R.id.btnBack);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etPhone.getText().equals("")) {
-                    mPhone = String.valueOf(etPhone.getText());
-                    Intent intent = new Intent(mContext, PasswordActivity.class);
-                    intent.putExtra(PasswordActivity.EXTRA_CITY_ID, mCityId);
-                    intent.putExtra(PasswordActivity.EXTRA_PHONE, mPhone);
+                if (!etPassword.getText().equals("")
+                        && etPassword.getText().equals(etRepeatPassword.getText())) {
+                    mPassword = String.valueOf(etPassword.getText());
+                    Intent intent = new Intent(mContext, CodeActivity.class);
+                    intent.putExtra(CodeActivity.EXTRA_CITY_ID, mCityId);
+                    intent.putExtra(CodeActivity.EXTRA_PHONE, mPhone);
+                    intent.putExtra(CodeActivity.EXTRA_PASSWORD, mPassword);
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(mContext, R.string.toast_enter_phone, Toast.LENGTH_SHORT)
+                    Toast.makeText(mContext, R.string.toast_enter_password_and_repeat_password, Toast.LENGTH_SHORT)
                             .show();
                 }
             }
@@ -55,8 +59,9 @@ public class PhoneActivity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, CityActivity.class);
-                intent.putExtra(CityActivity.EXTRA_CITY_ID, mCityId);
+                Intent intent = new Intent(mContext, PhoneActivity.class);
+                intent.putExtra(PhoneActivity.EXTRA_CITY_ID, mCityId);
+                intent.putExtra(PhoneActivity.EXTRA_PHONE, mPhone);
                 startActivity(intent);
                 finish();
             }

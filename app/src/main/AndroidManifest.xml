@@ -26,6 +26,9 @@
         <activity
             android:name=".activity.PhoneActivity"
             android:theme="@style/SetupTheme" />
+        <activity
+            android:name=".activity.PasswordActivity"
+            android:theme="@style/SetupTheme" />
         <activity android:name=".activity.MainActivity" />
 
         <service
@@ -38,6 +41,7 @@
             android:enabled="true"
             android:exported="false" />
 
+        <activity android:name=".activity.CodeActivity"></activity>
     </application>
 
 </manifest>

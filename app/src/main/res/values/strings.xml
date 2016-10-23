@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">MrHouse</string>
-    <string name="select_city">Выберите город</string>
-    <string name="enter_your_phone">Введите ваш телефон</string>
+    <string name="tv_select_city">Выберите город</string>
+    <string name="btn_next">Далее</string>
+    <string name="btn_back">Назад</string>
+    <string name="tv_enter_your_phone">Введите ваш телефон</string>
+    <string name="toast_select_city">Выберите город</string>
+    <string name="toast_enter_phone">Введите телефон</string>
+    <string name="tv_enter_password">Введите пароль</string>
+    <string name="tv_repeat_password">Подтвердите пароль</string>
+    <string name="toast_enter_password_and_repeat_password">Введите пароль с подверждением</string>
+    <string name="tv_enter_code_from_sms">Введите код, который пришел в SMS</string>
 </resources>
