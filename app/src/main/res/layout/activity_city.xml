@@ -4,6 +4,7 @@
     android:id="@+id/activity_city"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -14,15 +15,21 @@
         android:id="@+id/tvCity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spCity"
-        android:layout_alignParentStart="true"
-        android:text="@string/select_city" />
+        android:text="@string/tv_select_city" />
 
     <Spinner
-        android:id="@id/spCity"
+        android:id="@+id/spCity"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true" />
+        android:layout_below="@id/tvCity" />
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spCity"
+        android:layout_centerHorizontal="true"
+        android:text="@string/btn_next" />
 
 </RelativeLayout>
