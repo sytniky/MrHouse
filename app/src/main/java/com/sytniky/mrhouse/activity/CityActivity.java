@@ -25,9 +25,11 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
 
     public static final String EXTRA_CITY_ID = "cityId";
     private static final int LOADER_ID = 101;
+    public static final String EXTRA_CITY_POSITION = "cityPosition";
     private Context mContext;
     private SimpleCursorAdapter mCityAdapter;
     private long mCityId;
+    private int mCityPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +37,31 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
         setContentView(R.layout.activity_city);
         mContext = this;
 
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            mCityId = extras.getLong(EXTRA_CITY_ID);
-        }
-
         Spinner spCity = (Spinner) findViewById(R.id.spCity);
         Button btnNext = (Button) findViewById(R.id.btnNext);
+
+        mCityAdapter = new SimpleCursorAdapter(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                null,
+                new String[]{DBContracts.Cities.COLUMN_TITLE},
+                new int[]{android.R.id.text1},
+                0
+        );
+
+        spCity.setAdapter(mCityAdapter);
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            mCityPosition = extras.getInt(EXTRA_CITY_POSITION);
+            mCityId = extras.getLong(EXTRA_CITY_ID);
+            spCity.setSelection(mCityPosition);
+        }
 
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mCityPosition = position;
                 mCityId = id;
             }
 
@@ -59,7 +75,8 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onClick(View v) {
                 if (mCityId > 0) {
-                    Intent intent = new Intent(mContext, MainActivity.class);
+                    Intent intent = new Intent(mContext, PhoneActivity.class);
+                    intent.putExtra(PhoneActivity.EXTRA_CITY_POSITION, mCityPosition);
                     intent.putExtra(PhoneActivity.EXTRA_CITY_ID, mCityId);
                     startActivity(intent);
                     finish();
@@ -70,16 +87,6 @@ public class CityActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-        mCityAdapter = new SimpleCursorAdapter(
-                this,
-                android.R.layout.simple_spinner_dropdown_item,
-                null,
-                new String[]{DBContracts.Cities.COLUMN_TITLE},
-                new int[]{android.R.id.text1},
-                0
-        );
-
-        spCity.setAdapter( mCityAdapter);
         getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 

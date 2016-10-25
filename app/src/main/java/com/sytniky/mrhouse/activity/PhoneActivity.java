@@ -15,7 +15,9 @@ public class PhoneActivity extends AppCompatActivity {
 
     public static final String EXTRA_CITY_ID = "cityId";
     public static final String EXTRA_PHONE = "phone";
+    public static final String EXTRA_CITY_POSITION = "cityPosition";
     private Context mContext;
+    private int mCityPosition;
     private long mCityId;
     private String mPhone;
 
@@ -27,6 +29,7 @@ public class PhoneActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            mCityPosition = extras.getInt(EXTRA_CITY_POSITION);
             mCityId = extras.getLong(EXTRA_CITY_ID);
             mPhone = extras.getString(EXTRA_PHONE);
         }
@@ -38,9 +41,10 @@ public class PhoneActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etPhone.getText().equals("")) {
-                    mPhone = String.valueOf(etPhone.getText());
+                mPhone = String.valueOf(etPhone.getText());
+                if (!mPhone.equals("")) {
                     Intent intent = new Intent(mContext, PasswordActivity.class);
+                    intent.putExtra(PasswordActivity.EXTRA_CITY_POSITION, mCityPosition);
                     intent.putExtra(PasswordActivity.EXTRA_CITY_ID, mCityId);
                     intent.putExtra(PasswordActivity.EXTRA_PHONE, mPhone);
                     startActivity(intent);
@@ -56,6 +60,7 @@ public class PhoneActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, CityActivity.class);
+                intent.putExtra(CityActivity.EXTRA_CITY_POSITION, mCityPosition);
                 intent.putExtra(CityActivity.EXTRA_CITY_ID, mCityId);
                 startActivity(intent);
                 finish();

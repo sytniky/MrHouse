@@ -15,7 +15,9 @@ public class PasswordActivity extends AppCompatActivity {
 
     public static final String EXTRA_CITY_ID = "cityId";
     public static final String EXTRA_PHONE = "phone";
+    public static final String EXTRA_CITY_POSITION = "cityPosition";
     private Context mContext;
+    private int mCityPosition;
     private long mCityId;
     private String mPhone;
     private String mPassword;
@@ -28,6 +30,7 @@ public class PasswordActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
+            mCityPosition = extras.getInt(EXTRA_CITY_POSITION);
             mCityId = extras.getLong(EXTRA_CITY_ID);
             mPhone = extras.getString(EXTRA_PHONE);
         }
@@ -40,10 +43,14 @@ public class PasswordActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etPassword.getText().equals("")
-                        && etPassword.getText().equals(etRepeatPassword.getText())) {
-                    mPassword = String.valueOf(etPassword.getText());
+
+                mPassword = String.valueOf(etPassword.getText());
+                String repeatPassword = String.valueOf(etRepeatPassword.getText());
+
+                if (!mPassword.equals("")
+                        && mPassword.equals(repeatPassword)) {
                     Intent intent = new Intent(mContext, CodeActivity.class);
+                    intent.putExtra(CodeActivity.EXTRA_CITY_POSITION, mCityPosition);
                     intent.putExtra(CodeActivity.EXTRA_CITY_ID, mCityId);
                     intent.putExtra(CodeActivity.EXTRA_PHONE, mPhone);
                     intent.putExtra(CodeActivity.EXTRA_PASSWORD, mPassword);
@@ -60,6 +67,7 @@ public class PasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PhoneActivity.class);
+                intent.putExtra(PhoneActivity.EXTRA_CITY_POSITION, mCityPosition);
                 intent.putExtra(PhoneActivity.EXTRA_CITY_ID, mCityId);
                 intent.putExtra(PhoneActivity.EXTRA_PHONE, mPhone);
                 startActivity(intent);

@@ -30,6 +30,9 @@
             android:name=".activity.PasswordActivity"
             android:theme="@style/SetupTheme" />
         <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.CodeActivity"
+            android:theme="@style/SetupTheme" />
 
         <service
             android:name=".service.MrHouseService"
@@ -41,7 +44,6 @@
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activity.CodeActivity"></activity>
     </application>
 
 </manifest>
