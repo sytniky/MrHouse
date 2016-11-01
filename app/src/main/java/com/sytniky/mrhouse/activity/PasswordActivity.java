@@ -47,8 +47,16 @@ public class PasswordActivity extends AppCompatActivity {
                 mPassword = String.valueOf(etPassword.getText());
                 String repeatPassword = String.valueOf(etRepeatPassword.getText());
 
-                if (!mPassword.equals("")
-                        && mPassword.equals(repeatPassword)) {
+                if (mPassword.equals("")) {
+                    Toast.makeText(mContext, R.string.toast_enter_password, Toast.LENGTH_SHORT)
+                            .show();
+                } else if (!mPassword.equals(repeatPassword)) {
+                    Toast.makeText(mContext,  R.string.toast_passwords_are_not_equal, Toast.LENGTH_SHORT)
+                            .show();
+                } else if (mPassword.length() < 3 || mPassword.length() > 32) {
+                    Toast.makeText(mContext, R.string.toast_available_password_length_is_from_3_to_32, Toast.LENGTH_SHORT)
+                            .show();
+                } else {
                     Intent intent = new Intent(mContext, CodeActivity.class);
                     intent.putExtra(CodeActivity.EXTRA_CITY_POSITION, mCityPosition);
                     intent.putExtra(CodeActivity.EXTRA_CITY_ID, mCityId);
@@ -56,9 +64,6 @@ public class PasswordActivity extends AppCompatActivity {
                     intent.putExtra(CodeActivity.EXTRA_PASSWORD, mPassword);
                     startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(mContext, R.string.toast_enter_password_and_repeat_password, Toast.LENGTH_SHORT)
-                            .show();
                 }
             }
         });

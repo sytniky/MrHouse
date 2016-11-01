@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.sytniky.mrhouse.R;
 
@@ -41,7 +42,13 @@ public class CodeActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!etCode.getText().equals("")) {
+                if (etCode.getText().equals("")) {
+                    Toast.makeText(mContext, R.string.toast_enter_code, Toast.LENGTH_SHORT)
+                            .show();
+                } else if (etCode.getText().length() > 4) {
+                    Toast.makeText(mContext, R.string.toast_code_length_must_be_not_more_4_numbers, Toast.LENGTH_SHORT)
+                            .show();
+                } else {
                     // send on server
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);

@@ -15,13 +15,17 @@ import android.net.Uri;
 public class DBProvider extends ContentProvider {
     public static final int CITIES = 11;
     public static final int CITIES_ID = 12;
+    public static final int SERVICES = 21;
+    public static final int SERVICES_ID = 22;
 
     private static final UriMatcher sUriMatcher;
 
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(DBContracts.AUTHORITY, DBContracts.Cities.TABLE_NAME, CITIES);
         sUriMatcher.addURI(DBContracts.AUTHORITY, DBContracts.Cities.TABLE_NAME + "/#", CITIES_ID);
+        sUriMatcher.addURI(DBContracts.AUTHORITY, DBContracts.Cities.TABLE_NAME, CITIES);
+        sUriMatcher.addURI(DBContracts.AUTHORITY, DBContracts.Services.TABLE_NAME + "/#", SERVICES_ID);
+        sUriMatcher.addURI(DBContracts.AUTHORITY, DBContracts.Services.TABLE_NAME, SERVICES);
     }
 
     private DBHelper dbHelper;
@@ -46,12 +50,19 @@ public class DBProvider extends ContentProvider {
     public Cursor query(Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
+        String id;
         switch (sUriMatcher.match(uri)) {
             case CITIES_ID:
-                String id = uri.getPathSegments().get(DBContracts.Cities.CITIES_ID_PATH_POSITION);
+                id = uri.getPathSegments().get(DBContracts.Cities.CITIES_ID_PATH_POSITION);
                 qb.appendWhere(DBContracts.Cities._ID + " = " + id);
             case CITIES:
                 qb.setTables(DBContracts.Cities.TABLE_NAME);
+                break;
+            case SERVICES_ID:
+                id = uri.getPathSegments().get(DBContracts.Services.SERVICES_ID_PATH_POSITION);
+                qb.appendWhere(DBContracts.Services._ID + " = " + id);
+            case SERVICES:
+                qb.setTables(DBContracts.Services.TABLE_NAME);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
@@ -73,15 +84,27 @@ public class DBProvider extends ContentProvider {
         Uri resUri = null;
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = cv != null ? new ContentValues(cv) : new ContentValues();
+        long rowId;
         switch (sUriMatcher.match(uri)) {
             case CITIES:
                 if (!values.containsKey(DBContracts.Cities._ID)
                         || !values.containsKey(DBContracts.Cities.COLUMN_TITLE))
                     throw new IllegalArgumentException("Wrong values");
 
-                long rowId = db.insert(DBContracts.Cities.TABLE_NAME, null, values);
+                rowId = db.insert(DBContracts.Cities.TABLE_NAME, null, values);
                 if (rowId > 0) {
                     resUri = ContentUris.withAppendedId(DBContracts.Cities.CONTENT_ID_URI_BASE, rowId);
+                    getContext().getContentResolver().notifyChange(resUri, null);
+                }
+                break;
+            case SERVICES:
+                if (!values.containsKey(DBContracts.Services._ID)
+                        || !values.containsKey(DBContracts.Services.COLUMN_TITLE))
+                    throw new IllegalArgumentException("Wrong values");
+
+                rowId = db.insert(DBContracts.Services.TABLE_NAME, null, values);
+                if (rowId > 0) {
+                    resUri = ContentUris.withAppendedId(DBContracts.Services.CONTENT_ID_URI_BASE, rowId);
                     getContext().getContentResolver().notifyChange(resUri, null);
                 }
                 break;
@@ -92,13 +115,20 @@ public class DBProvider extends ContentProvider {
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+        String id;
         int rowId;
         switch (sUriMatcher.match(uri)) {
             case CITIES_ID:
-                String id = uri.getPathSegments().get(DBContracts.Cities.CITIES_ID_PATH_POSITION);
+                id = uri.getPathSegments().get(DBContracts.Cities.CITIES_ID_PATH_POSITION);
                 selection = DBContracts.Cities._ID + "=" + id;
             case CITIES:
                 rowId = db.delete(DBContracts.Cities.TABLE_NAME, selection, selectionArgs);
+                break;
+            case SERVICES_ID:
+                id = uri.getPathSegments().get(DBContracts.Services.SERVICES_ID_PATH_POSITION);
+                selection = DBContracts.Services._ID + "=" + id;
+            case SERVICES:
+                rowId = db.delete(DBContracts.Services.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);

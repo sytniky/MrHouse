@@ -27,16 +27,17 @@ public class PhoneActivity extends AppCompatActivity {
         setContentView(R.layout.activity_phone);
         mContext = this;
 
+        final EditText etPhone = (EditText) findViewById(R.id.etPhone);
+        Button btnNext = (Button) findViewById(R.id.btnNext);
+        Button btnBack = (Button) findViewById(R.id.btnBack);
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             mCityPosition = extras.getInt(EXTRA_CITY_POSITION);
             mCityId = extras.getLong(EXTRA_CITY_ID);
             mPhone = extras.getString(EXTRA_PHONE);
+            etPhone.setText(mPhone);
         }
-
-        final EditText etPhone = (EditText) findViewById(R.id.etPhone);
-        Button btnNext = (Button) findViewById(R.id.btnNext);
-        Button btnBack = (Button) findViewById(R.id.btnBack);
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override

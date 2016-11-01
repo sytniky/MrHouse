@@ -91,14 +91,14 @@ public class SplashActivity extends AppCompatActivity {
         }
 
 
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //        ContentValues cv = new ContentValues();
 //        cv.put(DBContracts.Cities._ID, 1);
 //        cv.put(DBContracts.Cities.COLUMN_TITLE, "Одесса");
 //        getContentResolver().insert(DBContracts.Cities.CONTENT_URI, cv);
 //        // go to next step
 //        startNextActivity();
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     private void updateCitySynchDate() {

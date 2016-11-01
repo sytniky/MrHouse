@@ -3,11 +3,15 @@
     <string name="tv_select_city">Выберите город</string>
     <string name="btn_next">Далее</string>
     <string name="btn_back">Назад</string>
-    <string name="tv_enter_your_phone">Введите ваш телефон</string>
+    <string name="tv_enter_your_phone">Введите ваш телефон, +380...</string>
     <string name="toast_select_city">Выберите город</string>
     <string name="toast_enter_phone">Введите телефон</string>
     <string name="tv_enter_password">Введите пароль</string>
     <string name="tv_repeat_password">Подтвердите пароль</string>
-    <string name="toast_enter_password_and_repeat_password">Введите пароль с подверждением</string>
     <string name="tv_enter_code_from_sms">Введите код, который пришел в SMS</string>
+    <string name="toast_enter_password">Введите пароль</string>
+    <string name="toast_passwords_are_not_equal">Пароли не совпадают</string>
+    <string name="toast_available_password_length_is_from_3_to_32">Допустимая длина пароля от 3 до 32 символов</string>
+    <string name="toast_enter_code">Ведите код с SMS</string>
+    <string name="toast_code_length_must_be_not_more_4_numbers">Длина кода не должна превышать 4 цифры</string>
 </resources>
