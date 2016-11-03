@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBContracts.Cities.COLUMN_TITLE + " TEXT)");
 
         db.execSQL("CREATE TABLE " + DBContracts.Services.TABLE_NAME + " (" +
-                DBContracts.Services._ID + " INTEGET PRIMARY KEY, " +
+                DBContracts.Services._ID + " INTEGER PRIMARY KEY, " +
                 DBContracts.Services.COLUMN_TITLE + " TEXT, " +
                 DBContracts.Services.COLUMN_THUMB + " INTEGER)");
 
