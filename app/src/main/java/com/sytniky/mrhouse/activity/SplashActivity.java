@@ -1,6 +1,7 @@
 package com.sytniky.mrhouse.activity;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.sytniky.mrhouse.R;
+import com.sytniky.mrhouse.database.DBContracts;
 import com.sytniky.mrhouse.service.MrHouseServiceHelper;
 import com.sytniky.mrhouse.utility.Constants;
 import com.sytniky.mrhouse.utility.Logger;
@@ -71,34 +73,34 @@ public class SplashActivity extends AppCompatActivity {
         long savedCitySynchDate = getSavedCitySynchDate();
         Logger.debug(TAG, "Saved synch city date = " + String.valueOf(savedCitySynchDate));
 
-        if (savedCitySynchDate == 0) {
+//        if (savedCitySynchDate == 0) {
+//
+//            // make request and wait results...
+//            mRequestId = serviceHelper.getCities();
+//        } else if (isExpiredCitySynchDate(savedCitySynchDate)) {
+//
+//            // make request and go to next step without waiting of results
+//            mRequestId = serviceHelper.getCities();
+//            startNextActivity();
+//        } else {
+//            try {
+//                Thread.sleep(1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            // go to next step
+//            startNextActivity();
+//        }
 
-            // make request and wait results...
-            mRequestId = serviceHelper.getCities();
-        } else if (isExpiredCitySynchDate(savedCitySynchDate)) {
 
-            // make request and go to next step without waiting of results
-            mRequestId = serviceHelper.getCities();
-            startNextActivity();
-        } else {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            // go to next step
-            startNextActivity();
-        }
-
-
-//        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//        ContentValues cv = new ContentValues();
-//        cv.put(DBContracts.Cities._ID, 1);
-//        cv.put(DBContracts.Cities.COLUMN_TITLE, "Одесса");
-//        getContentResolver().insert(DBContracts.Cities.CONTENT_URI, cv);
-//        // go to next step
-//        startNextActivity();
-//        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        ContentValues cv = new ContentValues();
+        cv.put(DBContracts.Cities._ID, 1);
+        cv.put(DBContracts.Cities.COLUMN_TITLE, "Одесса");
+        getContentResolver().insert(DBContracts.Cities.CONTENT_URI, cv);
+        // go to next step
+        startNextActivity();
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!! DEBUG !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     }
 
     private void updateCitySynchDate() {
@@ -132,8 +134,8 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void startNextActivity() {
-        Intent intent = new Intent(this, CityActivity.class);
-        //Intent intent = new Intent(this, MainActivity.class);
+        //Intent intent = new Intent(this, CityActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

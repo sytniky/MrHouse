@@ -7,7 +7,7 @@ import android.provider.BaseColumns;
  * Created by yuriy on 15.10.16.
  */
 public class DBContracts {
-    public static final String DB_NAME = "MrHouse";
+    public static final String DB_NAME = "mr_house";
     public static final String AUTHORITY = "com.sytniky.mrhouse.database.MrHouse";
     public static final int DB_VERSION = 1;
 
